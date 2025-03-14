@@ -1,0 +1,10 @@
+/*index.css*/
+:root {
+    --color-background: #E2E2DC;  /* Main Background */
+    --color-secondary-bg: #BDC6C7; /* Secondary Background */
+    --color-accent-light: #E6CEA1; /* Accent/Highlight */
+    --color-accent-medium: #CCA770; /* Stronger Accent */
+    --color-accent-dark: #AF7A38; /* Text & Emphasis */
+  }
+  
+  
