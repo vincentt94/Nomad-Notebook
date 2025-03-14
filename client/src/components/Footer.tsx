@@ -9,13 +9,13 @@ export default function Footer() {
         <Link to="/">
           Home
         </Link>
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" >
           Instagram
         </a>
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" >
           Facebook
         </a>
-        <a href="https://x.com/?lang=en" target="_blank" rel="noopener noreferrer" className="hover:text-black">
+        <a href="https://x.com/?lang=en" target="_blank" rel="noopener noreferrer">
           Twitter 
         </a>
       </div>
