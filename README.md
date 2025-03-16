@@ -20,8 +20,8 @@ Link to Deployed Application:
 ## Installation & Setup
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/your-username/QuikCart.git
-   cd QuikCart
+   git clone [https://github.com/your-username/QuikCart.git](https://github.com/vincentt94/Travel-Journal)
+   cd Travel-Journal
 2. **Install Dependencies**
     ```sh
    npm install
