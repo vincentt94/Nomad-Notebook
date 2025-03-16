@@ -1,3 +1,7 @@
 export default function MyStories() {
-    return ("");
+    return (
+        <div>
+            <h1>My Stories</h1>
+        </div>
+    );
 }
