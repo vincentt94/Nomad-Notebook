@@ -7,6 +7,7 @@ export const ADD_USER = gql`
     user {
       username
       _id
+      email
     }
     token
   }
