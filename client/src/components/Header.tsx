@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { type MouseEvent} from 'react';
 import Auth from '../utils/auth';
+import logo from '../assets/logo.png'; 
+
 
 
 const Header = () => {
@@ -15,9 +17,12 @@ const Header = () => {
     <header>
       <div>
         <div>
-          <Link to="/">
-            <h1 >Travel Journal</h1>
-          </Link>
+            <div id = "logoImg"> 
+                <img src={logo} alt="Travel Journal Logo"/>
+            </div>
+            <Link to="/">
+                    <h1>Nomad Notebook</h1>
+            </Link>
           <p >Please login or sign up to begin your journal!</p>
         </div>
         <div>

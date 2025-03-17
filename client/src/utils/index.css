@@ -22,6 +22,45 @@ body {
   flex: 1; 
 }
 
+
+/*___________________________________________HEADER___________________________________________*/
+
+
+header {
+  display: flex;
+  justify-content: space-between; 
+  align-items:center;
+  padding: 10px 20px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+.title-container h1 {
+  margin: 0; 
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+}
+
+#logoImg img{
+  width: 100px;
+  height: auto;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+
+
+/*___________________________________________END HEADER___________________________________________*/
+
+
+/*___________________________________________FOOTER___________________________________________*/
+
 .footer-container {
   margin-top: auto; 
   background-color: var(--color-secondary-bg);
@@ -40,3 +79,4 @@ body {
 .footer a:hover {
   text-decoration: underline;
 }
+/*___________________________________________END FOOTER___________________________________________*/
