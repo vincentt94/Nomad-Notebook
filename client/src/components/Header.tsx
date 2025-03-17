@@ -25,9 +25,8 @@ const Header = () => {
           {Auth.loggedIn() ? (
             <>
             {/* no /me route so need to remove that linked our area */}
-              <Link className="btn btn-lg btn-info m-2" to="/me">
-                {/* Retrieving the logged-in user's profile to display the username */}
-                {Auth.getProfile().data.username}'s profile
+              <Link className="btn btn-lg btn-light m-2" to="/mystories">
+                My Stories
               </Link>
               <button className="btn btn-lg btn-light m-2" onClick={logout}>
                 Logout
@@ -40,9 +39,6 @@ const Header = () => {
               </Link>
               <Link className="btn btn-lg btn-light m-2" to="/signup">
                 Signup
-              </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/mystories">
-                My Stories
               </Link>
             </>
           )}

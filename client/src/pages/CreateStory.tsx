@@ -1,4 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useMutation } from "@apollo/client";
+
+import { ADD_STORY } from "../utils/mutations.js";
+import Auth from "../utils/auth.js"
 
 
 interface CreateStoryProps {
@@ -10,6 +14,20 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [story, setStory] = useState("");
     const [image, setImage] = useState<File | undefined | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+    const [addStory, { loading, error }] = useMutation(ADD_STORY, {
+        onCompleted: () => {
+            alert("Story submitted successfully!");
+            setTitle("");
+            setStory("");
+            setImage(null);
+            setImagePreview(null);
+        },
+        onError: (err) => {
+            console.error("Error adding story:", err);
+            alert("Failed to submit story.");
+        },
+    });
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -26,14 +44,17 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const imageUrl = imagePreview || undefined;
-        onAddStory(title, story, imageUrl);
         // create post and send to database
-        // reset form
-        
-        setTitle("");
-        setStory("");
-        setImage(null);
-        setImagePreview(null);
+        addStory({
+            variables: {
+                title,
+                story,
+                image: imageUrl,
+                userId: "67d85ff2cb2a9e59fba5bf10" // hard coded to one example user in db
+                // userId: Auth.getProfile().data.id, // Pass current user's ID
+            },
+        });
+        onAddStory(title, story, imageUrl);
     }
 
     return (
@@ -62,7 +83,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={handleImageChange} 
+                        onChange={handleImageChange}
                         multiple={false}
                     />
                 </div>
@@ -75,6 +96,16 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                     </div>
                 )}
                 <input type="submit" value="Post Story"></input>
+                { loading && (
+                    <p>
+                        Submitting story...
+                    </p>
+                )}
+                { error && (
+                    <p>
+                        Issue submitting story.
+                    </p>
+                )}
             </form>
         </div>
     );
