@@ -1,5 +1,11 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-export default function CreateStory() {
+
+
+interface CreateStoryProps {
+    onAddStory: (title: string, story: string, image?: string) => void;
+}
+
+export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [title, setTitle] = useState("");
     const [story, setStory] = useState("");
     const [image, setImage] = useState<File | undefined | null>(null);
@@ -19,8 +25,11 @@ export default function CreateStory() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+        const imageUrl = imagePreview || undefined;
+        onAddStory(title, story, imageUrl);
         // create post and send to database
         // reset form
+        
         setTitle("");
         setStory("");
         setImage(null);
