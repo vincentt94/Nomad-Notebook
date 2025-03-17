@@ -1,0 +1,25 @@
+import { Link } from "react-router-dom";
+
+
+export default function Footer() {
+  return (
+    <footer className="footer-container">
+      <p>© 2025 KVM. All rights reserved.</p>
+
+      <div className="footer">
+        <Link to="/">
+          Home
+        </Link>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" >
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" >
+          Facebook
+        </a>
+        <a href="https://x.com/?lang=en" target="_blank" rel="noopener noreferrer">
+          Twitter 
+        </a>
+      </div>
+    </footer>
+  );
+}
