@@ -23,7 +23,7 @@ const Login = () => {
     console.log(formState);
     try {
       const { data } = await login({
-        variables: { ...formState },
+        variables: { input: { email: formState.email, password: formState.password } },
       });
 
       Auth.login(data.login.token);
