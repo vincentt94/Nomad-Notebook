@@ -29,10 +29,10 @@ const Header = () => {
           {/* Checking if the user is logged in to conditionally render profile link and logout button */}
           {Auth.loggedIn() ? (
             <>
-              
-                {/* &nbsp; adds a space */}
-                Logged in as:&nbsp;
-                {Auth.getProfile().data.username}&nbsp;
+            {/* no /me route so need to remove that linked our area */}
+              <Link to="/mystories">
+                My Stories
+              </Link>
               <button onClick={logout}>
                 Logout
               </button>
@@ -44,9 +44,6 @@ const Header = () => {
               </Link>
               <Link to="/signup">
                 Signup&nbsp;
-              </Link>
-              <Link to="/mystories">
-                My Stories&nbsp;
               </Link>
             </>
           )}

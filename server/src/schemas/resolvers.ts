@@ -18,8 +18,7 @@ interface AddUserArgs {
 interface AddStoryArgs {
     title: string,
     story: string,
-    imageUrl: string,
-    userId: string
+    imageUrl: string
 }
 
 interface LoginArgs {
@@ -59,8 +58,8 @@ const resolvers = {
             const token = signToken(newUser.username, newUser._id);
             return { token, user: newUser };
         },
-        addStory: async (_: unknown, { title, story, imageUrl, userId }: AddStoryArgs) => {
-            const newStory = new Story({ title, story, imageUrl, userId });
+        addStory: async (_: unknown, { title, story, imageUrl }: AddStoryArgs, context: any) => {
+            const newStory = new Story({ title, story, imageUrl, userId: context.user._id });
             await newStory.save();
             return newStory;
         },

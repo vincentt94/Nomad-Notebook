@@ -28,8 +28,8 @@ const resolvers = {
             const token = signToken(newUser.username, newUser._id);
             return { token, user: newUser };
         },
-        addStory: async (_, { title, story, imageUrl, userId }) => {
-            const newStory = new Story({ title, story, imageUrl, userId });
+        addStory: async (_, { title, story, imageUrl }, context) => {
+            const newStory = new Story({ title, story, imageUrl, userId: context.user._id });
             await newStory.save();
             return newStory;
         },

@@ -1,7 +1,7 @@
 const typeDefs = `
 
     type Story {
-        id: ID!
+        _id: ID!
         title: String!
         story: String!
         imageUrl: String
@@ -42,7 +42,7 @@ const typeDefs = `
     type Mutation {
         addUser(input: UserInput!): Auth
         login(input: LoginInput!): Auth
-        addStory(title: String!, story: String!, imageUrl: String, userId: ID!): Story!
+        addStory(title: String!, story: String!, imageUrl: String): Story!
     }
 `;
 export default typeDefs;
