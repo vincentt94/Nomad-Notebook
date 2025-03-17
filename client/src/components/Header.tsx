@@ -41,6 +41,9 @@ const Header = () => {
               <Link className="btn btn-lg btn-light m-2" to="/signup">
                 Signup
               </Link>
+              <Link className="btn btn-lg btn-light m-2" to="/mystories">
+                My Stories
+              </Link>
             </>
           )}
         </div>
