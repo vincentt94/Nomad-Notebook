@@ -28,9 +28,9 @@ export const LOGIN_USER = gql`
 
 // Story mutation
 export const ADD_STORY = gql`
-  mutation AddStory($title: String!, $story: String!, $imageUrl: String, $userId: ID!) {
-    addStory(title: $title, story: $story, imageUrl: $imageUrl, userId: $userId) {
-      id
+  mutation AddStory($title: String!, $story: String!, $imageUrl: String) {
+    addStory(title: $title, story: $story, imageUrl: $imageUrl) {
+      _id
       title
       story
       imageUrl

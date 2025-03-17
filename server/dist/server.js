@@ -4,6 +4,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import path from 'node:path';
 import { typeDefs, resolvers } from './schemas/index.js';
 import db from './config/connection.js';
+import { authenticateToken } from './utils/auth.js';
 const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
@@ -25,7 +26,9 @@ const startApolloServer = async () => {
         });
     }
     // Important for MERN Setup: Any client-side requests that begin with '/graphql' will be handled by our Apollo Server
-    app.use('/graphql', expressMiddleware(server));
+    app.use('/graphql', expressMiddleware(server, {
+        context: authenticateToken
+    }));
     app.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);
         console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);

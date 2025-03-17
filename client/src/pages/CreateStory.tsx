@@ -50,7 +50,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                 title,
                 story,
                 image: imageUrl,
-                userId: "67d85ff2cb2a9e59fba5bf10" // hard coded to one example user in db
+                // userId: "67d85ff2cb2a9e59fba5bf10" // hard coded to one example user in db
                 // userId: Auth.getProfile().data.id, // Pass current user's ID
             },
         });
