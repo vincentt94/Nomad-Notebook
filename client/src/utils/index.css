@@ -1,32 +1,69 @@
-/*index.css*/
+/* index.css */
 :root {
-    --color-background: #E2E2DC;  /* Main Background */
-    --color-secondary-bg: #BDC6C7; /* Secondary Background */
-    --color-accent-light: #E6CEA1; /* Accent/Highlight */
-    --color-accent-medium: #CCA770; /* Stronger Accent */
-    --color-accent-dark: #AF7A38; /* Text & Emphasis */
-  }
-  
-  * {
-    background-color: var(--color-background);
-  }
+  --color-background: #E2E2DC;  /* Main Background */
+  --color-secondary-bg: #BDC6C7; /* Secondary Background */
+  --color-accent-light: #E6CEA1; /* Accent/Highlight */
+  --color-accent-medium: #CCA770; /* Stronger Accent */
+  --color-accent-dark: #AF7A38; /* Text & Emphasis */
+}
+
+* {
+  background-color: var(--color-background);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  flex: 1; 
+}
 
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-  }
+/*___________________________________________HEADER___________________________________________*/
+
+
+header {
+  display: flex;
+  justify-content: space-between; 
+  align-items:center;
+  padding: 10px 20px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+.title-container h1 {
+  margin: 0; 
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+}
+
+#logoImg img{
+  width: 100px;
+  height: auto;
+  padding-left: 20px;
+  padding-top: 20px;
+}
 
 
 
-/*-----------------------------FOOTER-----------------------------*/
+/*___________________________________________END HEADER___________________________________________*/
+
+
+/*___________________________________________FOOTER___________________________________________*/
 
 .footer-container {
-  margin-top: auto; /* Pushes the footer to the bottom */
-  background-color: #333;
-  color: white;
+  margin-top: auto; 
+  background-color: var(--color-secondary-bg);
   text-align: center;
   padding: 1rem;
 }
@@ -35,14 +72,11 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
-}
-
-.footer a {
-  color: white;
-  text-decoration: none;
+  background-color: var(--color-secondary-bg);
+  width: 100%; 
 }
 
 .footer a:hover {
   text-decoration: underline;
 }
-/*-----------------------------END FOOTER-----------------------------*/
+/*___________________________________________END FOOTER___________________________________________*/
