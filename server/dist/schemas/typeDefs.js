@@ -21,6 +21,11 @@ const typeDefs = `
         user: User
     }
 
+    input LoginInput {
+        email: String!
+        password: String!
+    }
+
     input UserInput {
         username: String!
         email: String!
@@ -36,6 +41,7 @@ const typeDefs = `
 
     type Mutation {
         addUser(input: UserInput!): Auth
+        login(input: LoginInput!): Auth
         addStory(title: String!, story: String!, imageUrl: String, userId: ID!): Story!
     }
 `;
