@@ -21,6 +21,10 @@ export default function CreateStory() {
         e.preventDefault();
         // create post and send to database
         // reset form
+        setTitle("");
+        setStory("");
+        setImage(null);
+        setImagePreview(null);
     }
 
     return (
