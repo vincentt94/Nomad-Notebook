@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { GET_STORIES } from "../utils/queries"; // Import GraphQL query
+import { GET_STORIES } from "../utils/queries";
 import { Link } from "react-router-dom";
+import JournalCard from "../components/JournalCard"
 
 export default function Home() {
     const { data, loading, error } = useQuery(GET_STORIES);
@@ -18,15 +19,15 @@ export default function Home() {
             {error && <p>Error loading stories.</p>}
 
             {randomStory && (
-                <div>
-                    <h2>{randomStory.title}</h2>
-                    <p><strong>By:</strong> {randomStory.username}</p>
-                    <p>{randomStory.story}</p>
-                    {randomStory.image && <img src={randomStory.image} alt={randomStory.title} width="300" />}
-                </div>
+                <JournalCard
+                    title={randomStory.title}
+                    story={randomStory.story}
+                    image={randomStory.imageUrl} 
+                    username={randomStory.username}
+                />
             )}
 
-            <Link to="/createStory">
+            <Link to="/mystories">
                 <button>Create Your Own Story</button>
             </Link>
         </div>

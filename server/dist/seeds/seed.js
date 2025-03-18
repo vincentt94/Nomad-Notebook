@@ -5,7 +5,7 @@ import User from "../models/User.js";
 import Story from "../models/Story.js";
 dotenv.config();
 //connects to MongoDB
-mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/travelJournalDB");
+mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/travel-journal");
 //sample users
 const users = [
     {
