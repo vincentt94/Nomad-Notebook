@@ -10,8 +10,8 @@ const resolvers = {
         getStories: async () => {
             return await Story.find().sort({ createdAt: -1 });
         },
-        getUserStories: async (_, { userId }) => {
-            return await Story.find({ userId }).sort({ createdAt: -1 });
+        getUserStories: async (_, __, context) => {
+            return await Story.find({ userId: context.user._id }).sort({ createdAt: -1 });
         },
         getUsers: async () => {
             return await User.find().sort({ createdAt: -1 });

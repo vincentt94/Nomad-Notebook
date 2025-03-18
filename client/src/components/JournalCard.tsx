@@ -1,6 +1,7 @@
 import React from "react";
 
 interface JournalCardProps {
+    id: string;
     title: string;
     story: string;
     image?: string;

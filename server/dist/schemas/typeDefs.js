@@ -35,7 +35,7 @@ const typeDefs = `
     type Query {
         hello: String
         getStories: [Story!]!
-        getUserStories(userId: ID!): [Story!]!
+        getUserStories: [Story!]!
         getUsers: [User]!
     }
 

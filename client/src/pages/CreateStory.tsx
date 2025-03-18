@@ -2,11 +2,10 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { useMutation } from "@apollo/client";
 
 import { ADD_STORY } from "../utils/mutations.js";
-import Auth from "../utils/auth.js"
 
 
 interface CreateStoryProps {
-    onAddStory: (title: string, story: string, image?: string) => void;
+    onAddStory: () => void; // No parameters needed, just triggers refetch
 }
 
 export default function CreateStory({ onAddStory }: CreateStoryProps) {
@@ -17,6 +16,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
 
     const [addStory, { loading, error }] = useMutation(ADD_STORY, {
         onCompleted: () => {
+            onAddStory();
             alert("Story submitted successfully!");
             setTitle("");
             setStory("");
@@ -43,15 +43,13 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const imageUrl = imagePreview || undefined;
+        const imageUrl = imagePreview || "";
         // create post and send to database
         addStory({
             variables: {
                 title,
                 story,
-                image: imageUrl,
-                // userId: "67d85ff2cb2a9e59fba5bf10" // hard coded to one example user in db
-                // userId: Auth.getProfile().data.id, // Pass current user's ID
+                image: imageUrl
             },
         });
         onAddStory(title, story, imageUrl);
