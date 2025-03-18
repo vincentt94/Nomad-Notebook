@@ -82,6 +82,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
         });
         onAddStory();
     }
+<<<<<<< HEAD
 
     
 
@@ -139,9 +140,23 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                 {imagePreview && (
                     <div>
                         <img src={imagePreview} alt="Preview"></img>
+=======
+        return (
+            <div className="create-story-container">
+                <div className="create-story-box">
+                    <h1>Create Story</h1>
+                    <form onSubmit={handleSubmit}>
+>>>>>>> 0710345e869d03230198f6f57602676946b3e7d5
                         <div>
-                            <button onClick={handleRemoveImage}>Remove Image</button>
+                            <input
+                                type="text"
+                                placeholder="Title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                required
+                            />
                         </div>
+<<<<<<< HEAD
                     </div>
                 )}
                 <input type="submit" value="Post Story"></input>
@@ -158,4 +173,37 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
             </form>
         </div>
     );
+=======
+                        <div>
+                            <textarea
+                                placeholder="Write Your Story Here..."
+                                value={story}
+                                onChange={(e) => setStory(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Choose a picture to upload:</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                multiple={false}
+                            />
+                        </div>
+                        {imagePreview && (
+                            <div className="image-preview">
+                                <img src={imagePreview} alt="Preview" />
+                                <button onClick={handleRemoveImage}>Remove Image</button>
+                            </div>
+                        )}
+                        <input type="submit" value="Post Story" />
+                        {loading && <p>Submitting story...</p>}
+                        {error && <p>Issue submitting story.</p>}
+                    </form>
+                </div>
+            </div>
+        );
+        
+>>>>>>> 0710345e869d03230198f6f57602676946b3e7d5
 }
