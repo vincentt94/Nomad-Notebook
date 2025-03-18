@@ -21,14 +21,12 @@ export default function Home() {
 
 
     return (
-        <div>
-            <h1>Home</h1>
-            <p>Welcome to Nomad Notebook!</p>
-
+        <div className="home-container">
+            <h1>Recent Stories</h1>
+    
             {loading && <p>Loading stories...</p>}
             {error && <p>Error loading stories.</p>}
-
-            {/* Display a feed of 4 random stories */}
+    
             <div className="story-feed">
                 {randomStories.map((story) => (
                     <JournalCard
@@ -37,13 +35,17 @@ export default function Home() {
                         story={story.story}
                         image={story.imageUrl}
                         username={story.username}
+                        className="journal-card"
                     />
                 ))}
             </div>
-
+    
             <Link to="/mystories">
-                <button>Create Your Own Story</button>
+                <button className="create-story-button">Add Your Own Story</button>
             </Link>
+
+        
         </div>
     );
+    
 }
