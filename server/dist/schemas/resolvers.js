@@ -8,7 +8,17 @@ const resolvers = {
             return "Hello World";
         },
         getStories: async () => {
-            return await Story.find().sort({ createdAt: -1 });
+            const stories = await Story.find().sort({ createdAt: -1 }).lean();
+            // return await Story.find().sort({ createdAt: -1 });
+            // Populate the username by looking up the userId in the User model
+            const populatedStories = await Promise.all(stories.map(async (story) => {
+                const user = await User.findById(story.userId);
+                return {
+                    ...story,
+                    username: user ? user.username : "Unknown", // If user is not found, return "Unknown"
+                };
+            }));
+            return populatedStories;
         },
         getUserStories: async (_, __, context) => {
             return await Story.find({ userId: context.user._id }).sort({ createdAt: -1 });

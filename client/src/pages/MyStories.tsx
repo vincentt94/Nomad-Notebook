@@ -9,6 +9,7 @@ interface Story {
     title: string;
     story: string;
     image?: string;
+    username: string;
 }
 
 export default function MyStories() {
