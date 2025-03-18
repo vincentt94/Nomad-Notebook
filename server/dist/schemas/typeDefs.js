@@ -6,6 +6,7 @@ const typeDefs = `
         story: String!
         imageUrl: String
         userId: ID!
+        username: String
         createdAt: String
     }
 
