@@ -11,3 +11,14 @@ export const GET_STORIES = gql`
     }
   }
 `;
+
+export const USER_STORIES = gql`
+    query GetUserStories {
+        getUserStories {
+            _id
+            story
+            title
+            imageUrl
+        }
+    }
+`
