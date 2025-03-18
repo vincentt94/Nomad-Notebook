@@ -52,59 +52,51 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                 image: imageUrl
             },
         });
-        onAddStory(title, story, imageUrl);
+        onAddStory();
     }
-
-    return (
-        <div>
-            <h1>Create Story</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <textarea
-                        placeholder="Write your story here..."
-                        value={story}
-                        onChange={(e) => setStory(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Choose a picture to upload:</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        multiple={false}
-                    />
-                </div>
-                {imagePreview && (
-                    <div>
-                        <img src={imagePreview} alt="Preview"></img>
+        return (
+            <div className="create-story-container">
+                <div className="create-story-box">
+                    <h1>Create Story</h1>
+                    <form onSubmit={handleSubmit}>
                         <div>
-                            <button onClick={handleRemoveImage}>Remove Image</button>
+                            <input
+                                type="text"
+                                placeholder="Title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                required
+                            />
                         </div>
-                    </div>
-                )}
-                <input type="submit" value="Post Story"></input>
-                { loading && (
-                    <p>
-                        Submitting story...
-                    </p>
-                )}
-                { error && (
-                    <p>
-                        Issue submitting story.
-                    </p>
-                )}
-            </form>
-        </div>
-    );
+                        <div>
+                            <textarea
+                                placeholder="Write Your Story Here..."
+                                value={story}
+                                onChange={(e) => setStory(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label>Choose a picture to upload:</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                multiple={false}
+                            />
+                        </div>
+                        {imagePreview && (
+                            <div className="image-preview">
+                                <img src={imagePreview} alt="Preview" />
+                                <button onClick={handleRemoveImage}>Remove Image</button>
+                            </div>
+                        )}
+                        <input type="submit" value="Post Story" />
+                        {loading && <p>Submitting story...</p>}
+                        {error && <p>Issue submitting story.</p>}
+                    </form>
+                </div>
+            </div>
+        );
+        
 }
