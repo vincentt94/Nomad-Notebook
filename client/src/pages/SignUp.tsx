@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
-
+import "../utils/signUp.css"
 
 // need to work on auth.ts in utils folder 
 import Auth from '../utils/auth';
@@ -42,8 +42,8 @@ const Signup = () => {
 
   return (
     <main>
-      <div className="login-container">
-        <div className="login-box">
+      <div className="signup-container">
+        <div className="signup-box">
           <h2>Sign Up</h2>
           <div>
             {data ? (
