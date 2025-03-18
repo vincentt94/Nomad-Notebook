@@ -4,14 +4,15 @@ interface JournalCardProps {
     id: string;
     title: string;
     story: string;
-    image?: string;
+    imageUrl?: string;
     username?: string;
 }
 
-export default function JournalCard({ title, story, image, username }: JournalCardProps) {
+export default function JournalCard({ title, story, imageUrl, username }: JournalCardProps) {
+    console.log("Rendered JournalCard:", {title, imageUrl, username}); // debugging issue 
     return (
         <div className="journal-card">
-            {image && <img src={image} alt={title} className="journal-image" />}
+            {imageUrl && <img src={imageUrl} alt={title} className="journal-image" />}
             <div className="journal-content">
                 <h2 className="journal-title">{title}</h2>
                 {username && 

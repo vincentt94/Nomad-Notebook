@@ -1,7 +1,15 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useMutation } from "@apollo/client";
-
 import { ADD_STORY } from "../utils/mutations.js";
+import Auth from "../utils/auth";
+import cityImg from "../assets/cityvibes.webp";
+import forestImg from "../assets/forestvibes.avif";
+import islandImg from "../assets/islandvibes.webp";
+import lakeImg from "../assets/lakevibes.jpg";
+import mountainImg from "../assets/mountainvibes.jpg";
+import riverImg from "../assets/rivervibes.jpg";
+import suburbanImg from "../assets/surburbanvibes.jpg";
+
 
 
 interface CreateStoryProps {
@@ -13,6 +21,8 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [story, setStory] = useState("");
     const [image, setImage] = useState<File | undefined | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState(""); //  Track selected predefined image
+
 
     const [addStory, { loading, error }] = useMutation(ADD_STORY, {
         onCompleted: () => {
@@ -22,6 +32,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
             setStory("");
             setImage(null);
             setImagePreview(null);
+            setSelectedImage("");
         },
         onError: (err) => {
             console.error("Error adding story:", err);
@@ -29,11 +40,23 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
         },
     });
 
+    //stock images in an array
+    const imageOptions = [    
+        "../../assets/cityvibes.webp",
+        "../../assets/forestvibes.avif",
+        "../../assets/islandvibes.webp",
+        "../../assets/lakevibes.jpg",
+        "../../assets/mountainvibes.jpg",
+        "../..assets/rivervibes.jpg",
+        "../../assets/suburbanvibes.jpg",];
+
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         setImage(file)
         const urlPreview = file ? URL.createObjectURL(file) : null;
-        setImagePreview(urlPreview)
+        setImagePreview(urlPreview);
+        setSelectedImage(""); //clears selected stock image 
+
     }
 
     const handleRemoveImage = () => {
@@ -44,16 +67,23 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const imageUrl = imagePreview || "";
+
+        const finalImageUrl = imagePreview || selectedImage || ""; // use selected image or uploaded preview
+
+        console.log("submitting story - Image URL:", finalImageUrl); // debuggging
+
         // create post and send to database
         addStory({
             variables: {
                 title,
                 story,
-                image: imageUrl
+                imageUrl: imageUrl
             },
         });
-        onAddStory(title, story, imageUrl);
+        onAddStory();
     }
+
+    
 
     return (
         <div>
@@ -76,6 +106,27 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                         required
                     />
                 </div>
+
+                <div>
+                    <label>Select an Image:</label>
+                    <select value={selectedImage} onChange={(e) => setSelectedImage(e.target.value)} required>
+                        <option value="">-- Choose an image --</option>
+                        {imageOptions.map((image, index) => (
+                            <option key={index} value={image}>
+                                Image {index + 1}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {selectedImage && (
+                    <div>
+                        <img src={selectedImage} alt="Selected Preview" width="300px" />
+                    </div>
+                )}
+
+                
+
                 <div>
                     <label>Choose a picture to upload:</label>
                     <input
@@ -94,12 +145,12 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                     </div>
                 )}
                 <input type="submit" value="Post Story"></input>
-                { loading && (
+                {loading && (
                     <p>
                         Submitting story...
                     </p>
                 )}
-                { error && (
+                {error && (
                     <p>
                         Issue submitting story.
                     </p>

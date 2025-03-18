@@ -39,6 +39,7 @@ const resolvers = {
             return { token, user: newUser };
         },
         addStory: async (_, { title, story, imageUrl }, context) => {
+            console.log("saving story - Image URL:", imageUrl); // debugging 
             const newStory = new Story({ title, story, imageUrl, userId: context.user._id });
             await newStory.save();
             return newStory;
