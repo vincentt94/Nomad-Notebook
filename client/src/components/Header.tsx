@@ -17,22 +17,22 @@ const Header = () => {
     <header>
       <div>
         <div>
-            <div id = "logoImg"> 
+        <div className="header-content">
+            <Link to="/" id="logoImg">
                 <img src={logo} alt="Travel Journal Logo"/>
-            </div>
-            <Link to="/">
-                    <h1>Nomad Notebook</h1>
             </Link>
-          <p >Please login or sign up to begin your journal!</p>
+            <Link to="/">
+                <h1>Nomad Notebook</h1>
+            </Link>
+        </div>
+
+        <p >Please login or sign up to begin your journal!</p>
         </div>
         <div>
           {/* Checking if the user is logged in to conditionally render profile link and logout button */}
           {Auth.loggedIn() ? (
             <>
             {/* no /me route so need to remove that linked our area */}
-              <Link to="/mystories">
-                My Stories
-              </Link>
               <button onClick={logout}>
                 Logout
               </button>
@@ -42,9 +42,11 @@ const Header = () => {
               <Link to="/login">
                 Login&nbsp; 
               </Link>
+              
               <Link to="/signup">
                 Signup&nbsp;
               </Link>
+
             </>
           )}
         </div>

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
+
+
 // need to work on auth.ts in utils folder 
 import Auth from '../utils/auth';
 
@@ -39,10 +41,10 @@ const Signup = () => {
   };
 
   return (
-    <main >
-      <div >
-        <div>
-          <h4 >Sign Up</h4>
+    <main>
+      <div className="login-container">
+        <div className="login-box">
+          <h2>Sign Up</h2>
           <div>
             {data ? (
               <p>
@@ -52,28 +54,31 @@ const Signup = () => {
             ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
-                  placeholder="Your username"
+                  className="input-field"
+                  placeholder="Username"
                   name="username"
                   type="text"
                   value={formState.username}
                   onChange={handleChange}
                 />
                 <input
-                  placeholder="Your email"
+                  className="input-field"
+                  placeholder="Email"
                   name="email"
                   type="email"
                   value={formState.email}
                   onChange={handleChange}
                 />
                 <input
-                  placeholder="******"
+                  className="input-field"
+                  placeholder= "Password"
                   name="password"
                   type="password"
                   value={formState.password}
                   onChange={handleChange}
                 />
                 <button
-                  style={{ cursor: 'pointer' }}
+                  className="login-button"
                   type="submit"
                 >
                   Submit
@@ -86,6 +91,10 @@ const Signup = () => {
                 {error.message}
               </div>
             )}
+
+            <p className="register-link">
+              Already have an account? <Link to="/login">Login here</Link>
+            </p>
           </div>
         </div>
       </div>
@@ -94,4 +103,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
