@@ -36,7 +36,6 @@ export default function Home() {
                         story={story.story}
                         imageUrl={story.imageUrl}
                         username={story.username}
-                        className="journal-card"
                     />
                 ))}
             </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { useQuery } from "@apollo/client";
 import CreateStory from "./CreateStory";
 import JournalCard from "../components/JournalCard.tsx";
@@ -15,7 +15,7 @@ interface Story {
 export default function MyStories() {
     // const [stories, setStories] = useState<Story[]>([]);
 
-    const { loading, error, data, refetch } = useQuery(USER_STORIES);
+    const { data, refetch } = useQuery(USER_STORIES);
 
     // Ensure data exists before accessing getUserStories
     const stories = data?.getUserStories ?? [];
