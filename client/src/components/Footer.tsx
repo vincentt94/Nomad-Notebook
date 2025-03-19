@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-
+import "../utils/index.css";
 
 export default function Footer() {
   return (
     <footer className="footer-container">
-      <p>© 2025 KVM. All rights reserved.</p>
+      <p>© 2025 KVM. All Rights Reserved.</p>
 
       <div className="footer">
         <Link to="/">

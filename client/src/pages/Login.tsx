@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
+import "../utils/login.css"
+
 import Auth from '../utils/auth';
 
 const Login = () => {
@@ -23,7 +25,7 @@ const Login = () => {
     console.log(formState);
     try {
       const { data } = await login({
-        variables: { ...formState },
+        variables: { input: { email: formState.email, password: formState.password } },
       });
 
       Auth.login(data.login.token);
@@ -38,53 +40,55 @@ const Login = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Sign In</h2>
 
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
+        <div>
+          {data ? (
+            <p>
+              Success! You may now head{' '}
+              <Link to="/">back to the homepage.</Link>
+            </p>
+          ) : (
+            <form onSubmit={handleFormSubmit}>
+              <input
+                placeholder="Email"
+                name="email"
+                type="email"
+                value={formState.email}
+                onChange={handleChange}
+                className="input-field"
+              />
+              <input
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={formState.password}
+                onChange={handleChange}
+                className="input-field"
+              />
+              <button
+                type="submit"
+                className="login-button"
+                style={{ cursor: 'pointer' }}
+              >
+                Login
+              </button>
+            </form>
+          )}
+
+          {error && (
+            <div>
+              <p className="error-message">{error.message}</p>
+            </div>
+          )}
         </div>
+        <p className="register-link">
+          Don’t have an account? <Link to="/signup">Register Now</Link>
+        </p>
       </div>
-    </main>
+    </div>
   );
 };
 

@@ -6,7 +6,6 @@ import Home from "./pages/Home.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import Login from "./pages/Login.tsx";
 import MyStories from "./pages/MyStories.tsx";
-import CreateStory from "./pages/CreateStory.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx"
 
 const router = createBrowserRouter([
@@ -30,10 +29,6 @@ const router = createBrowserRouter([
             {
                 path: "/mystories",
                 element: <MyStories />,
-            },
-            {
-                path: "/createstory",
-                element: <CreateStory />,
             }
         ],
     },

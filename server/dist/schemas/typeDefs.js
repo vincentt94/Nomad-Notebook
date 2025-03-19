@@ -1,11 +1,12 @@
 const typeDefs = `
 
     type Story {
-        id: ID!
+        _id: ID!
         title: String!
         story: String!
         imageUrl: String
         userId: ID!
+        username: String
         createdAt: String
     }
 
@@ -21,6 +22,11 @@ const typeDefs = `
         user: User
     }
 
+    input LoginInput {
+        email: String!
+        password: String!
+    }
+
     input UserInput {
         username: String!
         email: String!
@@ -30,13 +36,14 @@ const typeDefs = `
     type Query {
         hello: String
         getStories: [Story!]!
-        getUserStories(userId: ID!): [Story!]!
+        getUserStories: [Story!]!
         getUsers: [User]!
     }
 
     type Mutation {
         addUser(input: UserInput!): Auth
-        addStory(title: String!, story: String!, imageUrl: String, userId: ID!): Story!
+        login(input: LoginInput!): Auth
+        addStory(title: String!, story: String!, imageUrl: String): Story!
     }
 `;
 export default typeDefs;
