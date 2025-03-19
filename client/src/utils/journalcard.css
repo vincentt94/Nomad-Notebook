@@ -2,5 +2,6 @@
     max-width: 250px;  /* Ensure images are never wider than 300px */
     height: auto;      /* Maintain aspect ratio */
     object-fit: cover; /* Ensures image fills the container without distortion */
-    border-radius: 10px; /* Optional: Adds rounded corners */
+    border-radius: 3px; /* Optional: Adds rounded corners */
+    
 }

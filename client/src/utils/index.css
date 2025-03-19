@@ -31,11 +31,13 @@ header {
   align-items:center;
   padding: 0px 20px;
   background-color: var(--color-secondary-bg);
+  
 }
 
 .header-content {
   display: flex;
   align-items: center;
+  
 }
 
 .header-content h1 {
@@ -48,6 +50,7 @@ header a {
   color: inherit;
   padding-left: 30px;
   font-size: 20px;
+  
 }
 
 header a:hover {
@@ -276,14 +279,41 @@ header a:hover {
   cursor: pointer;
   border-radius: 3px;
   position: absolute;
-  top: 20%;  /* Adjust the top position as needed */
-  right: 40px;  /* Aligns the button to the right side */
-  width: auto;  /* Ensures the width is based on content */
-  min-width: 150px;  /* Set a minimum width if desired */
+  top: 20%;  
+  right: 40px; 
+  width: auto; 
+  min-width: 150px; 
 }
 
 .create-story-button:hover {
-  background: var(--color-secondary);
+  background: var(--color-accent-medium);
 }
 
 /*___________________________________________END HOME___________________________________________*/
+
+
+.story-list {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px; 
+  padding: 20px;
+}
+
+h3 {
+  text-align: center;
+  font-size: 50px;
+}
+
+#logoutButton {
+  font-size: 18px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  top: 90%;
+
+  width: auto;
+  min-width: 150px;
+  background-color: var(--color-secondary-bg); 
+  font-family: inherit;
+  font-size: 20px;
+}
