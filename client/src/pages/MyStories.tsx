@@ -28,6 +28,7 @@ export default function MyStories() {
     return (
         <div>
             <CreateStory onAddStory={refetch} />
+            <h3>My Stories</h3>
             <div className="story-list">
                 {stories.length > 0 ? (
                     stories.map((story: Story, index: number) => <JournalCard key={index} id = {story.id} title ={story.title} story = {story.story} imageUrl = {story.imageUrl} username={story.username} />)
