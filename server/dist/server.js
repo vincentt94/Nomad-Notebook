@@ -25,10 +25,10 @@ const startApolloServer = async () => {
     // In development, we run two servers concurrently that work together
     // In production, our Node server runs and delivers our client-side bundle from the dist/ folder
     if (process.env.NODE_ENV === 'production') {
-        app.use(express.static('../../client/dist'));
+        app.use(express.static('../client/dist'));
         console.log("test");
         app.get('*', (_req, res) => {
-            res.sendFile('../../client/dist/index.html');
+            res.sendFile('../client/dist/index.html');
         });
     }
     // Important for MERN Setup: Any client-side requests that begin with '/graphql' will be handled by our Apollo Server
