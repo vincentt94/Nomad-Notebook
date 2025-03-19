@@ -13,6 +13,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [story, setStory] = useState("");
     const [image, setImage] = useState<File | undefined | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState(""); //  Track selected predefined image
 
     const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
@@ -58,7 +59,6 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     }
 
     const handleSubmit = async (e: FormEvent) => {
-    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         let imageUrl = "";
         if (image) {
@@ -77,50 +77,75 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                 return;
             }
         }
+        else {
+            imageUrl = selectedImage || "";
+        }
         // create post and send to database
         addStory({
             variables: {
                 title,
                 story,
-                image: imageUrl
+                imageUrl: imageUrl
             },
         });
     }
 
     return (
-        <div>
-            <h1>Create Story</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <textarea
-                        placeholder="Write your story here..."
-                        value={story}
-                        onChange={(e) => setStory(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Choose a picture of type .png, .jpg, or .jpeg to upload:</label>
-                    <input
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        onChange={handleImageChange}
-                        multiple={false}
-                    />
-                </div>
-                {imagePreview && (
+        <div className="create-story-container">
+            <div className="create-story-box">
+                <h1>Create Story</h1>
+                <form onSubmit={handleSubmit}>
                     <div>
-                        <img src={imagePreview} alt="Preview"></img>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <textarea
+                            placeholder="Write Your Story Here..."
+                            value={story}
+                            onChange={(e) => setStory(e.target.value)}
+                            required
+                        />
+                    </div>
+                    {/*Here we can select an image from a list*/}
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        marginBottom: "20px"
+                    }}>
+
+                        <label>Select an Image:</label>
+                        <select value={selectedImage} onChange={(e) => setSelectedImage(e.target.value)}>
+                            <option value="">-- Choose an image --</option>
+                            {imageOptions.map((image, index) => (
+                                <option key={index} value={image.value}>
+                                    {image.label}
+                                </option>
+                            ))}
+                        </select>
+                        {/*This allows the user to preview the image*/}
+                        {selectedImage && <img src={selectedImage} alt="Selected" width="300px" />}
+
+                        {/*Here is where we can allow the user to upload an image of their choice*/}
                         <div>
+                            <label>Choose a picture to upload:</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                multiple={false}
+                            />
+                        </div>
+                    </div>
+                    {imagePreview && (
+                        <div className="image-preview">
+                            <img src={imagePreview} alt="Preview" />
                             <button onClick={handleRemoveImage}>Remove Image</button>
                         </div>
                     )}

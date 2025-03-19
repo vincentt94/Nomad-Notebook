@@ -56,6 +56,7 @@ const resolvers = {
             return await User.find().sort({ createdAt: -1 });
         },
     },
+    
     Upload: GraphQLUpload,
     Mutation: {
         uploadImage: async (_: unknown, { file }: any) => {
