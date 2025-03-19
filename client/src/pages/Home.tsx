@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GET_STORIES } from "../utils/queries";
 import { Link } from "react-router-dom";
-import JournalCard from "../components/JournalCard"
+import JournalCard from "../components/JournalCard";
+
 
 export default function Home() {
     const { data, loading, error } = useQuery(GET_STORIES);
@@ -33,7 +34,7 @@ export default function Home() {
                         key={story._id}
                         title={story.title}
                         story={story.story}
-                        image={story.imageUrl}
+                        imageUrl={story.imageUrl}
                         username={story.username}
                         className="journal-card"
                     />

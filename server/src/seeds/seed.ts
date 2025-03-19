@@ -29,22 +29,23 @@ const users = [
     },
 ]
 
+
 //sample stories
 const stories = [
     {
         title: "Exploring the Amazon Rainforest",
         story: "I hiked through the jungle and encountered exotic wildlife. It was breathtaking!",
-        // image: "need to figure out if I want this here or not",
+        imageUrl: "/assets/forestvibes.avif",
     },
     {
         title: "Climbing in Colorado",
         story: "When I was visiting Colorado, I was able to rock climb and explore the various mountains.  It was wonderful and a great time.",
-        // image: "need to figure out if I want this here or not",
+        imageUrl: "/assets/mountainvibes.jpg",
     },
     {
         title: "Krazy Kyoto",
         story: "Last night in Kyoto was a blur!  I don't remember a thing",
-        // image: "need to figure out if I want this here or not",
+        imageUrl: "/assets/cityvibes.webp",
     },
 
 ]
