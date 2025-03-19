@@ -6,9 +6,13 @@ import path from 'node:path';
 import { typeDefs, resolvers } from './schemas/index.js';
 import db from './config/connection.js';
 import { authenticateToken } from './utils/auth.js';
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 1 })); // Enables file uploads in GraphQL
+
 const server = new ApolloServer({
     typeDefs,
     resolvers,

@@ -12,6 +12,11 @@ import Footer from "./components/Footer.tsx";
 
 const httpLink = createHttpLink({
   uri: '/graphql',
+  /*
+  headers: {
+    "Apollo-Require-Preflight": "true", // Ensures proper file handling
+  }
+    */
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header

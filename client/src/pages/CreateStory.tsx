@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useMutation } from "@apollo/client";
 
-import { ADD_STORY } from "../utils/mutations.js";
+import { ADD_STORY, UPLOAD_IMAGE } from "../utils/mutations.js";
 
 
 interface CreateStoryProps {
@@ -14,10 +14,12 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [image, setImage] = useState<File | undefined | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
+    const [uploadImage] = useMutation(UPLOAD_IMAGE);
+
     const [addStory, { loading, error }] = useMutation(ADD_STORY, {
         onCompleted: () => {
             onAddStory();
-            alert("Story submitted successfully!");
+            // alert("Story submitted successfully!");
             setTitle("");
             setStory("");
             setImage(null);
@@ -41,9 +43,25 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
         setImagePreview(null)
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const imageUrl = imagePreview || "";
+        let imageUrl = "";
+        if (image) {
+            try {
+                console.log(image);
+                const response = await uploadImage(
+                    { 
+                        variables: { file: image }, 
+                        context: { headers: { "Apollo-Require-Preflight": "true" } } 
+                    },
+                );
+                imageUrl = response.data.uploadImage;
+            } catch (error) {
+                console.error("Image upload failed:", error);
+                alert("Failed to upload image.");
+                return;
+            }
+        }
         // create post and send to database
         addStory({
             variables: {
@@ -52,7 +70,6 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                 image: imageUrl
             },
         });
-        onAddStory(title, story, imageUrl);
     }
 
     return (
@@ -77,10 +94,10 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                     />
                 </div>
                 <div>
-                    <label>Choose a picture to upload:</label>
+                    <label>Choose a picture of type .png, .jpg, or .jpeg to upload:</label>
                     <input
                         type="file"
-                        accept="image/*"
+                        accept=".png, .jpg, .jpeg"
                         onChange={handleImageChange}
                         multiple={false}
                     />

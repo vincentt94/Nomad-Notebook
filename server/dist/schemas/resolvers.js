@@ -2,6 +2,8 @@ import Story from "../models/Story.js";
 import User from "../models/User.js";
 import { signToken } from '../utils/auth.js';
 import bcrypt from "bcryptjs";
+import cloudinary from "../config/cloudinary.js";
+import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 const resolvers = {
     Query: {
         hello: async () => {
@@ -27,7 +29,25 @@ const resolvers = {
             return await User.find().sort({ createdAt: -1 });
         },
     },
+    Upload: GraphQLUpload,
     Mutation: {
+        uploadImage: async (_, { file }) => {
+            // Ensure file is correctly received
+            if (!file) {
+                throw new Error("No file received.");
+            }
+            const { createReadStream } = await file;
+            const stream = createReadStream();
+            const uploadResult = await new Promise((resolve, reject) => {
+                const cloudStream = cloudinary.uploader.upload_stream({ resource_type: "image" }, (error, result) => {
+                    if (error)
+                        reject(error);
+                    resolve(result);
+                });
+                stream.pipe(cloudStream);
+            });
+            return uploadResult.secure_url; // Return Cloudinary image URL
+        },
         addUser: async (_, { input }) => {
             const hashedPassword = await bcrypt.hash(input.password, 10);
             const newUser = await User.create({
