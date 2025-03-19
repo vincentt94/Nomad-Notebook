@@ -112,6 +112,8 @@ header a:hover {
   justify-content: center;
   align-items: center;
   width: 100%;
+  min-height: 100vh; 
+  overflow-y: auto; /*allows scrolling if content exceeeds height*/
   height: calc(75vh - 100px);
   margin: 0;
   background-size: cover;

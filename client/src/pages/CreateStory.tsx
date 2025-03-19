@@ -1,15 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_STORY } from "../utils/mutations.js";
-import Auth from "../utils/auth";
-import cityImg from "../assets/cityvibes.webp";
-import forestImg from "../assets/forestvibes.avif";
-import islandImg from "../assets/islandvibes.webp";
-import lakeImg from "../assets/lakevibes.jpg";
-import mountainImg from "../assets/mountainvibes.jpg";
-import riverImg from "../assets/rivervibes.jpg";
-import suburbanImg from "../assets/surburbanvibes.jpg";
-
 
 
 interface CreateStoryProps {
@@ -41,14 +32,15 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
     });
 
     //stock images in an array
-    const imageOptions = [    
-        "../../assets/cityvibes.webp",
-        "../../assets/forestvibes.avif",
-        "../../assets/islandvibes.webp",
-        "../../assets/lakevibes.jpg",
-        "../../assets/mountainvibes.jpg",
-        "../..assets/rivervibes.jpg",
-        "../../assets/suburbanvibes.jpg",];
+    const imageOptions = [
+        { label: "City", value: "/assets/cityvibes.webp", },
+        { label: "Forest", value: "/assets/forestvibes.avif" },
+        { label: "Island", value: "/assets/Islandvibes.webp" },
+        { label: "Lake", value: "/assets/lakevibes.jpg" },
+        { label: "Mountain", value: "/assets/mountainvibes.jpg" },
+        { label: "River", value: "/assets/rivervibes.jpg" },
+        { label: "Suburbs", value: "/assets/surburbanvibes.jpg" },
+    ];
 
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -77,111 +69,54 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
             variables: {
                 title,
                 story,
-                imageUrl: imageUrl
+                imageUrl: finalImageUrl
             },
         });
         onAddStory();
     }
-<<<<<<< HEAD
-
-    
-
     return (
-        <div>
-            <h1>Create Story</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <textarea
-                        placeholder="Write your story here..."
-                        value={story}
-                        onChange={(e) => setStory(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label>Select an Image:</label>
-                    <select value={selectedImage} onChange={(e) => setSelectedImage(e.target.value)} required>
-                        <option value="">-- Choose an image --</option>
-                        {imageOptions.map((image, index) => (
-                            <option key={index} value={image}>
-                                Image {index + 1}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                {selectedImage && (
+        <div className="create-story-container">
+            <div className="create-story-box">
+                <h1>Create Story</h1>
+                <form onSubmit={handleSubmit}>
                     <div>
-                        <img src={selectedImage} alt="Selected Preview" width="300px" />
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            required
+                        />
                     </div>
-                )}
-
-                
-
-                <div>
-                    <label>Choose a picture to upload:</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        multiple={false}
-                    />
-                </div>
-                {imagePreview && (
                     <div>
-                        <img src={imagePreview} alt="Preview"></img>
-=======
-        return (
-            <div className="create-story-container">
-                <div className="create-story-box">
-                    <h1>Create Story</h1>
-                    <form onSubmit={handleSubmit}>
->>>>>>> 0710345e869d03230198f6f57602676946b3e7d5
-                        <div>
-                            <input
-                                type="text"
-                                placeholder="Title"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                required
-                            />
-                        </div>
-<<<<<<< HEAD
+                        <textarea
+                            placeholder="Write Your Story Here..."
+                            value={story}
+                            onChange={(e) => setStory(e.target.value)}
+                            required
+                        />
                     </div>
-                )}
-                <input type="submit" value="Post Story"></input>
-                {loading && (
-                    <p>
-                        Submitting story...
-                    </p>
-                )}
-                {error && (
-                    <p>
-                        Issue submitting story.
-                    </p>
-                )}
-            </form>
-        </div>
-    );
-=======
-                        <div>
-                            <textarea
-                                placeholder="Write Your Story Here..."
-                                value={story}
-                                onChange={(e) => setStory(e.target.value)}
-                                required
-                            />
-                        </div>
+                    {/*Here we can select an image from a list*/}
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        marginBottom: "20px"
+                    }}>
+
+                        <label>Select an Image:</label>
+                        <select value={selectedImage} onChange={(e) => setSelectedImage(e.target.value)}>
+                            <option value="">-- Choose an image --</option>
+                            {imageOptions.map((image, index) => (
+                                <option key={index} value={image.value}>
+                                    {image.label}
+                                </option>
+                            ))}
+                        </select>
+                        {/*This allows the user to preview the image*/}
+                        {selectedImage && <img src={selectedImage} alt="Selected" width="300px" />}
+
+                        {/*Here is where we can allow the user to upload an image of their choice*/}
                         <div>
                             <label>Choose a picture to upload:</label>
                             <input
@@ -191,19 +126,19 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                                 multiple={false}
                             />
                         </div>
-                        {imagePreview && (
-                            <div className="image-preview">
-                                <img src={imagePreview} alt="Preview" />
-                                <button onClick={handleRemoveImage}>Remove Image</button>
-                            </div>
-                        )}
-                        <input type="submit" value="Post Story" />
-                        {loading && <p>Submitting story...</p>}
-                        {error && <p>Issue submitting story.</p>}
-                    </form>
-                </div>
+                    </div>
+                    {imagePreview && (
+                        <div className="image-preview">
+                            <img src={imagePreview} alt="Preview" />
+                            <button onClick={handleRemoveImage}>Remove Image</button>
+                        </div>
+                    )}
+                    <input type="submit" value="Post Story" />
+                    {loading && <p>Submitting story...</p>}
+                    {error && <p>Issue submitting story.</p>}
+                </form>
             </div>
-        );
-        
->>>>>>> 0710345e869d03230198f6f57602676946b3e7d5
+        </div>
+    );
+
 }
