@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GET_STORIES } from "../utils/queries";
 import { Link } from "react-router-dom";
-import JournalCard from "../components/JournalCard"
+import JournalCard from "../components/JournalCard";
+
 
 export default function Home() {
     const { data, loading, error } = useQuery(GET_STORIES);
@@ -21,29 +22,31 @@ export default function Home() {
 
 
     return (
-        <div>
-            <h1>Home</h1>
-            <p>Welcome to Nomad Notebook!</p>
-
+        <div className="home-container">
+            <h1>Recent Stories</h1>
+    
             {loading && <p>Loading stories...</p>}
             {error && <p>Error loading stories.</p>}
-
-            {/* Display a feed of 4 random stories */}
+    
             <div className="story-feed">
                 {randomStories.map((story) => (
                     <JournalCard
                         key={story._id}
                         title={story.title}
                         story={story.story}
-                        image={story.imageUrl}
+                        imageUrl={story.imageUrl}
                         username={story.username}
+                        className="journal-card"
                     />
                 ))}
             </div>
-
+    
             <Link to="/mystories">
-                <button>Create Your Own Story</button>
+                <button className="create-story-button">Add Your Own Story</button>
             </Link>
+
+        
         </div>
     );
+    
 }

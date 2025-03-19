@@ -24,6 +24,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
             setStory("");
             setImage(null);
             setImagePreview(null);
+            setSelectedImage("");
         },
         onError: (err) => {
             console.error("Error adding story:", err);
@@ -31,11 +32,24 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
         },
     });
 
+    //stock images in an array
+    const imageOptions = [
+        { label: "City", value: "/assets/cityvibes.webp", },
+        { label: "Forest", value: "/assets/forestvibes.avif" },
+        { label: "Island", value: "/assets/Islandvibes.webp" },
+        { label: "Lake", value: "/assets/lakevibes.jpg" },
+        { label: "Mountain", value: "/assets/mountainvibes.jpg" },
+        { label: "River", value: "/assets/rivervibes.jpg" },
+        { label: "Suburbs", value: "/assets/surburbanvibes.jpg" },
+    ];
+
     const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         setImage(file)
         const urlPreview = file ? URL.createObjectURL(file) : null;
-        setImagePreview(urlPreview)
+        setImagePreview(urlPreview);
+        setSelectedImage(""); //clears selected stock image 
+
     }
 
     const handleRemoveImage = () => {
@@ -43,6 +57,7 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
         setImagePreview(null)
     }
 
+    const handleSubmit = async (e: FormEvent) => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         let imageUrl = "";
@@ -108,20 +123,13 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
                         <div>
                             <button onClick={handleRemoveImage}>Remove Image</button>
                         </div>
-                    </div>
-                )}
-                <input type="submit" value="Post Story"></input>
-                { loading && (
-                    <p>
-                        Submitting story...
-                    </p>
-                )}
-                { error && (
-                    <p>
-                        Issue submitting story.
-                    </p>
-                )}
-            </form>
+                    )}
+                    <input type="submit" value="Post Story" />
+                    {loading && <p>Submitting story...</p>}
+                    {error && <p>Issue submitting story.</p>}
+                </form>
+            </div>
         </div>
     );
+
 }

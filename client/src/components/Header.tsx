@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { type MouseEvent } from 'react';
 import Auth from '../utils/auth';
-import logo from '../assets/logo.png';
+import logo from '../assets/Logo.png'; 
 
 
 
@@ -16,18 +16,18 @@ const Header = () => {
   return (
     <header>
       <div>
-        <div>
+        
           <div className="header-content">
             <Link to="/" id="logoImg">
-              <img src={logo} alt="Travel Journal Logo" />
+                <img src={logo} alt="Travel Journal Logo"/>
+
             </Link>
             <Link to="/">
               <h1>Nomad Notebook</h1>
             </Link>
           </div>
-
-          <p >Please login or sign up to begin your journal!</p>
         </div>
+        
         <div>
           {/* Checking if the user is logged in to conditionally render profile link and logout button */}
           {Auth.loggedIn() ? (
@@ -53,10 +53,10 @@ const Header = () => {
                 Signup&nbsp;
               </Link>
 
+
             </>
           )}
         </div>
-      </div>
     </header>
   );
 };
