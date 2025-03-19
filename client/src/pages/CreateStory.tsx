@@ -56,23 +56,26 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
         setImagePreview(null)
     }
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const imageUrl = imagePreview || "";
 
         const finalImageUrl = imagePreview || selectedImage || ""; // use selected image or uploaded preview
 
         console.log("submitting story - Image URL:", finalImageUrl); // debuggging
+        try {
+            // create post and send to database
+            await addStory({
+                variables: {
+                    title,
+                    story,
+                    imageUrl: finalImageUrl
+                },
+            });
 
-        // create post and send to database
-        addStory({
-            variables: {
-                title,
-                story,
-                imageUrl: finalImageUrl
-            },
-        });
-        onAddStory();
+            onAddStory();
+        } catch(err) {
+            console.error("Error submitting story", err);
+        }
     }
     return (
         <div className="create-story-container">
