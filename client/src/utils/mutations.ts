@@ -38,3 +38,10 @@ export const ADD_STORY = gql`
     }
   }
 `;
+
+// image upload
+export const UPLOAD_IMAGE = gql`
+  mutation UploadImage($file: Upload!) {
+    uploadImage(file: $file)
+  }
+`;
