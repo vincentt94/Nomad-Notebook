@@ -8,7 +8,7 @@ import Story from "../models/Story.js";
 dotenv.config();
 
 //connects to MongoDB
-mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/travel-journal")
+mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/travel-journal")
 
 //sample users
 const users = [
