@@ -1,4 +1,3 @@
-
 import { useQuery } from "@apollo/client";
 import CreateStory from "./CreateStory";
 import JournalCard from "../components/JournalCard.tsx";
@@ -9,7 +8,7 @@ interface Story {
     title: string;
     story: string;
     imageUrl?: string;
-    username: string;
+    username?: string;
 }
 
 export default function MyStories() {
@@ -29,9 +28,10 @@ export default function MyStories() {
     return (
         <div>
             <CreateStory onAddStory={refetch} />
+            <h3>My Stories</h3>
             <div className="story-list">
                 {stories.length > 0 ? (
-                    stories.map((story: Story, index: number) => <JournalCard key={index} title ={story.title} story = {story.story} imageUrl = {story.imageUrl} username={story.username} />)
+                    stories.map((story: Story, index: number) => <JournalCard key={index} id = {story.id} title ={story.title} story = {story.story} imageUrl = {story.imageUrl} username={story.username} />)
                 ) : (
                     <p>No stories found.</p>
                 )}

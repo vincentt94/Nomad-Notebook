@@ -38,9 +38,11 @@ const Header = () => {
               <Link to="/mystories">
                 My Stories&nbsp;
               </Link>
-              <button onClick={logout}>
+              <button id = "logoutButton" onClick={logout}>
                 Logout
               </button>
+              
+
 
             </>
           ) : (

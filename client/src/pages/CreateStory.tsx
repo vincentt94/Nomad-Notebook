@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_STORY } from "../utils/mutations.js";
+
+import { ADD_STORY, UPLOAD_IMAGE } from "../utils/mutations.js";
 
 
 interface CreateStoryProps {
@@ -10,15 +11,16 @@ interface CreateStoryProps {
 export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [title, setTitle] = useState("");
     const [story, setStory] = useState("");
-    const [_image, setImage] = useState<File | undefined | null>(null);
+    const [image, setImage] = useState<File | undefined | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState(""); //  Track selected predefined image
 
+    const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
     const [addStory, { loading, error }] = useMutation(ADD_STORY, {
         onCompleted: () => {
             onAddStory();
-            alert("Story submitted successfully!");
+            // alert("Story submitted successfully!");
             setTitle("");
             setStory("");
             setImage(null);
@@ -58,25 +60,36 @@ export default function CreateStory({ onAddStory }: CreateStoryProps) {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
-        const finalImageUrl = imagePreview || selectedImage || ""; // use selected image or uploaded preview
-
-        console.log("submitting story - Image URL:", finalImageUrl); // debuggging
-        try {
-            // create post and send to database
-            await addStory({
-                variables: {
-                    title,
-                    story,
-                    imageUrl: finalImageUrl
-                },
-            });
-
-            onAddStory();
-        } catch(err) {
-            console.error("Error submitting story", err);
+        let imageUrl = "";
+        if (image) {
+            try {
+                console.log(image);
+                const response = await uploadImage(
+                    { 
+                        variables: { file: image }, 
+                        context: { headers: { "Apollo-Require-Preflight": "true" } } 
+                    },
+                );
+                imageUrl = response.data.uploadImage;
+            } catch (error) {
+                console.error("Image upload failed:", error);
+                alert("Failed to upload image.");
+                return;
+            }
         }
+        else {
+            imageUrl = selectedImage || "";
+        }
+        // create post and send to database
+        addStory({
+            variables: {
+                title,
+                story,
+                imageUrl: imageUrl
+            },
+        });
     }
+
     return (
         <div className="create-story-container">
             <div className="create-story-box">
