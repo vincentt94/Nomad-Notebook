@@ -1,7 +1,7 @@
 import "../utils/journalcard.css"
 
 interface JournalCardProps {
-    id: string;
+    id?: string;
     title: string;
     story: string;
     imageUrl?: string;

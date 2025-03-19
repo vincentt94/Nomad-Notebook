@@ -11,7 +11,7 @@ interface CreateStoryProps {
 export default function CreateStory({ onAddStory }: CreateStoryProps) {
     const [title, setTitle] = useState("");
     const [story, setStory] = useState("");
-    const [image, setImage] = useState<File | undefined | null>(null);
+    const [_image, setImage] = useState<File | undefined | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [selectedImage, setSelectedImage] = useState(""); //  Track selected predefined image
 
