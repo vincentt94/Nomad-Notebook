@@ -1,5 +1,6 @@
 const typeDefs = `
-
+    scalar Upload
+    
     type Story {
         _id: ID!
         title: String!
@@ -44,6 +45,7 @@ const typeDefs = `
         addUser(input: UserInput!): Auth
         login(input: LoginInput!): Auth
         addStory(title: String!, story: String!, imageUrl: String): Story!
+        uploadImage(file: Upload!): String!
     }
 `;
 export default typeDefs;
